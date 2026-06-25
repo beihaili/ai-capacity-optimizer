@@ -1,0 +1,62 @@
+[
+  {
+    "request_id": "rq-research-001",
+    "source": "research-agent",
+    "title": "Research backlog summarization",
+    "requested_tokens": 80000,
+    "priority": 92,
+    "deadline": "2026-06-26",
+    "min_tokens": 30000,
+    "status": "active",
+    "created_at": "2026-06-24T00:00:00Z",
+    "tags": [
+      "research",
+      "summary"
+    ]
+  },
+  {
+    "request_id": "rq-code-002",
+    "source": "engineering",
+    "title": "Batch code review and refactor notes",
+    "requested_tokens": 120000,
+    "priority": 84,
+    "deadline": "2026-06-28",
+    "min_tokens": 50000,
+    "status": "active",
+    "created_at": "2026-06-24T00:00:00Z",
+    "tags": [
+      "code",
+      "review"
+    ]
+  },
+  {
+    "request_id": "rq-docs-003",
+    "source": "docs-agent",
+    "title": "Internal documentation sweep",
+    "requested_tokens": 60000,
+    "priority": 70,
+    "deadline": "2026-06-29",
+    "min_tokens": 25000,
+    "status": "active",
+    "created_at": "2026-06-24T00:00:00Z",
+    "tags": [
+      "docs",
+      "writing"
+    ]
+  },
+  {
+    "request_id": "rq-eval-004",
+    "source": "eval-agent",
+    "title": "Prompt library regression eval",
+    "requested_tokens": 95000,
+    "priority": 66,
+    "deadline": "2026-06-30",
+    "min_tokens": 40000,
+    "status": "active",
+    "created_at": "2026-06-24T00:00:00Z",
+    "tags": [
+      "eval",
+      "quality"
+    ]
+  }
+]

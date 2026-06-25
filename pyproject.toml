@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-capacity-optimizer"
+version = "0.1.0"
+description = "Local MVP for AI quota forecasting, relay allocation, and unified API routing."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+  { name = "beihaili" }
+]
+keywords = [
+  "ai",
+  "quota",
+  "capacity",
+  "routing",
+  "optimization",
+  "gateway"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = []
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.35"]
+dev = ["streamlit>=1.35"]
+
+[project.scripts]
+aco = "aco.main:main"
+aco-api = "aco.api_server:run_server"
+
+[project.urls]
+Homepage = "https://github.com/beihaili/ai-capacity-optimizer"
+Repository = "https://github.com/beihaili/ai-capacity-optimizer"
+Issues = "https://github.com/beihaili/ai-capacity-optimizer/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aco*"]
+
+[tool.setuptools.package-data]
+aco = ["data/*.json"]

@@ -1,0 +1,52 @@
+{
+  "providers": [
+    {
+      "provider_id": "chatgpt-pro-main",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "monthly_budget_tokens": 1000000,
+      "current_usage": 0,
+      "quality_score": 0.96,
+      "latency_ms": 900,
+      "cost_per_1k_tokens": 0.012,
+      "enabled": true,
+      "capabilities": [
+        "chat",
+        "code",
+        "reasoning"
+      ]
+    },
+    {
+      "provider_id": "claude-team-relay",
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet",
+      "monthly_budget_tokens": 600000,
+      "current_usage": 210000,
+      "quality_score": 0.94,
+      "latency_ms": 1100,
+      "cost_per_1k_tokens": 0.011,
+      "enabled": true,
+      "capabilities": [
+        "chat",
+        "writing",
+        "analysis"
+      ]
+    },
+    {
+      "provider_id": "cheap-batch-pool",
+      "provider": "openrouter",
+      "model": "gpt-4o-mini",
+      "monthly_budget_tokens": 2000000,
+      "current_usage": 900000,
+      "quality_score": 0.76,
+      "latency_ms": 650,
+      "cost_per_1k_tokens": 0.002,
+      "enabled": true,
+      "capabilities": [
+        "chat",
+        "batch",
+        "summary"
+      ]
+    }
+  ]
+}

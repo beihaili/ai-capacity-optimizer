@@ -1,0 +1,890 @@
+[
+  {
+    "timestamp": "2026-05-27T21:34:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2456,
+    "tokens_out": 1778,
+    "cost_estimate": 0.0508,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-05-27T11:02:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1414,
+    "tokens_out": 1083,
+    "cost_estimate": 0.0275,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-05-27T11:05:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3446,
+    "tokens_out": 2975,
+    "cost_estimate": 0.0771,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-28T18:40:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2673,
+    "tokens_out": 2959,
+    "cost_estimate": 0.0676,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-28T17:25:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 5541,
+    "tokens_out": 3124,
+    "cost_estimate": 0.0953,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-05-29T14:09:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3456,
+    "tokens_out": 2104,
+    "cost_estimate": 0.0167,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-29T16:52:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3500,
+    "tokens_out": 3891,
+    "cost_estimate": 0.0222,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-30T19:04:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1331,
+    "tokens_out": 1208,
+    "cost_estimate": 0.0279,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-30T15:43:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3649,
+    "tokens_out": 4252,
+    "cost_estimate": 0.0948,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-31T13:19:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2730,
+    "tokens_out": 2084,
+    "cost_estimate": 0.0144,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-05-31T09:36:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1023,
+    "tokens_out": 713,
+    "cost_estimate": 0.0208,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-05-31T15:18:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1891,
+    "tokens_out": 1136,
+    "cost_estimate": 0.0333,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-05-31T16:26:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2070,
+    "tokens_out": 1135,
+    "cost_estimate": 0.0385,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-01T09:48:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 2674,
+    "tokens_out": 2331,
+    "cost_estimate": 0.0551,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-01T13:44:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2034,
+    "tokens_out": 1313,
+    "cost_estimate": 0.01,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-01T20:29:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 3726,
+    "tokens_out": 2824,
+    "cost_estimate": 0.0721,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-02T08:46:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2878,
+    "tokens_out": 2005,
+    "cost_estimate": 0.0586,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-02T21:28:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1314,
+    "tokens_out": 954,
+    "cost_estimate": 0.0249,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-02T13:01:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1300,
+    "tokens_out": 1167,
+    "cost_estimate": 0.0271,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-02T09:31:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1859,
+    "tokens_out": 1709,
+    "cost_estimate": 0.0392,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-03T14:58:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1230,
+    "tokens_out": 829,
+    "cost_estimate": 0.0062,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-03T16:17:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 802,
+    "tokens_out": 858,
+    "cost_estimate": 0.005,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-03T19:26:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2818,
+    "tokens_out": 1708,
+    "cost_estimate": 0.0136,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-03T11:09:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3684,
+    "tokens_out": 2598,
+    "cost_estimate": 0.0188,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-04T15:53:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1686,
+    "tokens_out": 1214,
+    "cost_estimate": 0.0348,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-04T10:26:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1252,
+    "tokens_out": 1241,
+    "cost_estimate": 0.0299,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-04T13:08:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 4772,
+    "tokens_out": 4338,
+    "cost_estimate": 0.1002,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-05T15:57:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3725,
+    "tokens_out": 2640,
+    "cost_estimate": 0.0764,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-05T14:06:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2949,
+    "tokens_out": 2632,
+    "cost_estimate": 0.0167,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-05T09:13:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1218,
+    "tokens_out": 1081,
+    "cost_estimate": 0.0276,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-05T08:06:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 550,
+    "tokens_out": 616,
+    "cost_estimate": 0.0128,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-05T13:39:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 514,
+    "tokens_out": 558,
+    "cost_estimate": 0.0129,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-05T17:24:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 519,
+    "tokens_out": 600,
+    "cost_estimate": 0.0134,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-06T09:07:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2193,
+    "tokens_out": 1652,
+    "cost_estimate": 0.0115,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-06T09:09:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2630,
+    "tokens_out": 2187,
+    "cost_estimate": 0.0145,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-06T21:44:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1437,
+    "tokens_out": 966,
+    "cost_estimate": 0.0072,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-06T16:23:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2950,
+    "tokens_out": 2382,
+    "cost_estimate": 0.064,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-07T12:41:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 3865,
+    "tokens_out": 4623,
+    "cost_estimate": 0.0934,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-07T13:58:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 2384,
+    "tokens_out": 1467,
+    "cost_estimate": 0.0424,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-07T16:49:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1044,
+    "tokens_out": 684,
+    "cost_estimate": 0.019,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-07T20:50:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 771,
+    "tokens_out": 566,
+    "cost_estimate": 0.0147,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-07T20:14:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 613,
+    "tokens_out": 387,
+    "cost_estimate": 0.011,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-07T19:01:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 425,
+    "tokens_out": 344,
+    "cost_estimate": 0.0023,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-08T13:28:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1526,
+    "tokens_out": 1597,
+    "cost_estimate": 0.0344,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-08T09:14:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2476,
+    "tokens_out": 1387,
+    "cost_estimate": 0.0116,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-08T11:30:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1049,
+    "tokens_out": 880,
+    "cost_estimate": 0.0058,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-08T22:41:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2162,
+    "tokens_out": 1337,
+    "cost_estimate": 0.0105,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-08T21:42:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2570,
+    "tokens_out": 1644,
+    "cost_estimate": 0.0506,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-09T20:40:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3086,
+    "tokens_out": 1830,
+    "cost_estimate": 0.0147,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-09T14:29:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1043,
+    "tokens_out": 667,
+    "cost_estimate": 0.0188,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-09T19:10:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 6714,
+    "tokens_out": 4502,
+    "cost_estimate": 0.1346,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-10T20:41:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1271,
+    "tokens_out": 967,
+    "cost_estimate": 0.0067,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-10T15:42:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 7887,
+    "tokens_out": 5895,
+    "cost_estimate": 0.1516,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-11T20:46:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2614,
+    "tokens_out": 2877,
+    "cost_estimate": 0.0659,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-11T14:55:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1022,
+    "tokens_out": 819,
+    "cost_estimate": 0.0221,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-11T12:13:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2738,
+    "tokens_out": 1645,
+    "cost_estimate": 0.0526,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-11T13:16:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1009,
+    "tokens_out": 1017,
+    "cost_estimate": 0.0223,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-11T22:47:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 748,
+    "tokens_out": 466,
+    "cost_estimate": 0.0146,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-11T17:52:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1021,
+    "tokens_out": 601,
+    "cost_estimate": 0.0178,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-12T16:01:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1748,
+    "tokens_out": 1394,
+    "cost_estimate": 0.0346,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-12T20:51:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3582,
+    "tokens_out": 3779,
+    "cost_estimate": 0.0883,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-12T19:07:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 815,
+    "tokens_out": 890,
+    "cost_estimate": 0.0188,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-12T16:35:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 645,
+    "tokens_out": 607,
+    "cost_estimate": 0.0138,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-12T08:15:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1577,
+    "tokens_out": 1029,
+    "cost_estimate": 0.0287,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-12T16:28:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1515,
+    "tokens_out": 1484,
+    "cost_estimate": 0.036,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-13T17:32:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 2385,
+    "tokens_out": 2246,
+    "cost_estimate": 0.0509,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-13T16:34:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 5318,
+    "tokens_out": 3719,
+    "cost_estimate": 0.0271,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-14T22:35:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3731,
+    "tokens_out": 2996,
+    "cost_estimate": 0.0202,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-14T14:28:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2227,
+    "tokens_out": 2439,
+    "cost_estimate": 0.056,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-14T14:04:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3031,
+    "tokens_out": 3495,
+    "cost_estimate": 0.0783,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-15T19:41:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1890,
+    "tokens_out": 1114,
+    "cost_estimate": 0.036,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-15T15:14:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3349,
+    "tokens_out": 3650,
+    "cost_estimate": 0.084,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-15T10:42:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 938,
+    "tokens_out": 833,
+    "cost_estimate": 0.0053,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-15T16:25:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 4962,
+    "tokens_out": 5328,
+    "cost_estimate": 0.0309,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-16T13:01:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 3514,
+    "tokens_out": 3328,
+    "cost_estimate": 0.0753,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-16T08:24:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 3000,
+    "tokens_out": 2538,
+    "cost_estimate": 0.0609,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-16T16:04:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 4411,
+    "tokens_out": 3560,
+    "cost_estimate": 0.0239,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-17T22:49:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1195,
+    "tokens_out": 1182,
+    "cost_estimate": 0.0285,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-17T21:27:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 8425,
+    "tokens_out": 8290,
+    "cost_estimate": 0.2006,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-18T17:31:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1921,
+    "tokens_out": 1526,
+    "cost_estimate": 0.0379,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-18T20:44:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1721,
+    "tokens_out": 1958,
+    "cost_estimate": 0.0441,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-18T08:40:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2820,
+    "tokens_out": 1664,
+    "cost_estimate": 0.0135,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-18T09:16:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 964,
+    "tokens_out": 1103,
+    "cost_estimate": 0.0248,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-18T16:26:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 3234,
+    "tokens_out": 2747,
+    "cost_estimate": 0.0179,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-19T09:10:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 948,
+    "tokens_out": 759,
+    "cost_estimate": 0.0205,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-19T18:19:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 887,
+    "tokens_out": 938,
+    "cost_estimate": 0.0055,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-19T15:32:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 11688,
+    "tokens_out": 7732,
+    "cost_estimate": 0.0583,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-20T08:00:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2346,
+    "tokens_out": 1496,
+    "cost_estimate": 0.0115,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-20T16:30:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2880,
+    "tokens_out": 2262,
+    "cost_estimate": 0.0617,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-20T14:42:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1334,
+    "tokens_out": 1497,
+    "cost_estimate": 0.0311,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-20T16:19:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 2975,
+    "tokens_out": 2347,
+    "cost_estimate": 0.016,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-21T19:40:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1864,
+    "tokens_out": 1943,
+    "cost_estimate": 0.0419,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-21T21:08:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2795,
+    "tokens_out": 1520,
+    "cost_estimate": 0.0518,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-21T22:16:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 4474,
+    "tokens_out": 5166,
+    "cost_estimate": 0.106,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-22T21:32:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1389,
+    "tokens_out": 995,
+    "cost_estimate": 0.0072,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-22T11:44:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 11449,
+    "tokens_out": 6324,
+    "cost_estimate": 0.1955,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-23T08:16:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 1943,
+    "tokens_out": 2093,
+    "cost_estimate": 0.0121,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-23T13:15:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 2380,
+    "tokens_out": 1314,
+    "cost_estimate": 0.0406,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-23T08:21:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 1744,
+    "tokens_out": 1791,
+    "cost_estimate": 0.0424,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-23T18:12:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 731,
+    "tokens_out": 612,
+    "cost_estimate": 0.0148,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-23T09:16:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3802,
+    "tokens_out": 3100,
+    "cost_estimate": 0.0828,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-24T12:40:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 889,
+    "tokens_out": 793,
+    "cost_estimate": 0.005,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-24T21:48:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 1352,
+    "tokens_out": 1032,
+    "cost_estimate": 0.0262,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-24T14:48:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 4013,
+    "tokens_out": 2373,
+    "cost_estimate": 0.0702,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-24T12:46:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 2556,
+    "tokens_out": 1395,
+    "cost_estimate": 0.0474,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-24T21:53:00Z",
+    "model": "gpt-4o",
+    "tokens_in": 3607,
+    "tokens_out": 2628,
+    "cost_estimate": 0.0748,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-25T20:32:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 4435,
+    "tokens_out": 4847,
+    "cost_estimate": 0.1021,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-25T20:57:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 695,
+    "tokens_out": 436,
+    "cost_estimate": 0.0124,
+    "session_type": "batch"
+  },
+  {
+    "timestamp": "2026-06-25T11:05:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 4228,
+    "tokens_out": 2366,
+    "cost_estimate": 0.0725,
+    "session_type": "chat"
+  },
+  {
+    "timestamp": "2026-06-25T09:24:00Z",
+    "model": "gpt-4o-mini",
+    "tokens_in": 558,
+    "tokens_out": 613,
+    "cost_estimate": 0.0035,
+    "session_type": "api"
+  },
+  {
+    "timestamp": "2026-06-25T08:40:00Z",
+    "model": "claude-3-5-sonnet",
+    "tokens_in": 3260,
+    "tokens_out": 2544,
+    "cost_estimate": 0.0638,
+    "session_type": "batch"
+  }
+]
