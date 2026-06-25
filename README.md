@@ -117,4 +117,4 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 - [API](docs/api.md)
 - [Roadmap](ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
-- [GitHub Actions CI template](docs/github-actions-ci.yml)
+- [GitHub Actions CI](.github/workflows/ci.yml)
