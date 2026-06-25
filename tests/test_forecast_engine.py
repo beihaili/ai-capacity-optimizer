@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from aco.backend.api_gateway import ProviderConfig, score_candidates
+from aco.backend.api_gateway import ProviderConfig, route_unified_request, score_candidates
 from aco.backend.scheduler import simulate_schedule
 from aco.backend.relay_hub import RelayRequest, allocate_capacity
 from aco.engine.forecast_engine import (
@@ -12,6 +12,7 @@ from aco.engine.forecast_engine import (
 )
 from aco.engine.idle_detection import build_idle_report
 from aco.engine.value_estimator import estimate_wasted_value
+from aco.skills.registry import discover_skills
 
 
 class ForecastEngineTests(unittest.TestCase):
@@ -140,6 +141,25 @@ class ForecastEngineTests(unittest.TestCase):
         scored = score_candidates(providers, estimated_tokens=5_000, policy="quality")
         self.assertEqual(len(scored), 1)
         self.assertEqual(scored[0]["provider"]["provider_id"], "available")
+
+    def test_local_skills_are_discovered(self) -> None:
+        skills = discover_skills("skills", skill_type="routing_policy")
+        names = {item["manifest"].name for item in skills}
+        self.assertIn("route_fill_idle", names)
+        self.assertIn("route_cheap", names)
+
+    def test_fill_idle_policy_uses_routing_skill(self) -> None:
+        route = route_unified_request(
+            data_dir="aco/data",
+            payload={
+                "prompt": "Use idle capacity",
+                "policy": "fill_idle",
+                "estimated_tokens": 1_000,
+            },
+            skills_dir="skills",
+        )
+        self.assertEqual(route["routing_skill"]["name"], "route_fill_idle")
+        self.assertEqual(route["selected"]["provider"]["provider_id"], "cheap-batch-pool")
 
 
 if __name__ == "__main__":

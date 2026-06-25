@@ -1,0 +1,19 @@
+{
+  "name": "route_fill_idle",
+  "version": "0.1.0",
+  "type": "routing_policy",
+  "policy": "fill_idle",
+  "description": "Prefer provider pools with the most remaining token capacity.",
+  "entrypoint": "handler:run",
+  "inputs": [
+    "policy",
+    "estimated_usage",
+    "candidates"
+  ],
+  "outputs": [
+    "ranked_provider_ids",
+    "reason"
+  ],
+  "enabled": true
+}
+

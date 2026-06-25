@@ -1,6 +1,6 @@
 # Architecture
 
-AI Capacity Optimizer is organized around five layers.
+AI Capacity Optimizer is organized around six layers.
 
 ## 1. Observation
 
@@ -39,6 +39,10 @@ Usage events are stored in `aco/data/usage_log.json` and loaded through `aco.bac
 
 `aco.api_server` exposes a small stdlib HTTP server with OpenAI-compatible-ish chat completion responses.
 
+## 6. Skills
+
+`aco.skills` discovers local skills from the repository `skills/` directory. The initial runtime supports `routing_policy` skills that can reorder provider candidates for policies such as `cheap` and `fill_idle`.
+
 ## Request Flow
 
 ```mermaid
@@ -50,5 +54,5 @@ flowchart LR
     Usage["Usage Log"] --> Forecast["Forecast Engine"]
     Forecast --> Relay["Relay Hub"]
     Relay --> Router
+    Skills["Local Skills"] --> Router
 ```
-

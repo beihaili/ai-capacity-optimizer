@@ -54,5 +54,4 @@ Policies:
 - `fast`: prefer lower latency pools.
 - `fill_idle`: prefer pools with more idle capacity.
 
-Set `"debug": true` to include ACO routing metadata in the response.
-
+Policies can be backed by local routing skills in `skills/`. Set `"debug": true` to include routing metadata and see which skill, if any, handled the route.

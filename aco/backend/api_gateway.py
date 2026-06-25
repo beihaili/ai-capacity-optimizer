@@ -10,6 +10,8 @@ from pathlib import Path
 from uuid import uuid4
 
 from aco.backend.quota_model import load_quota_config
+from aco.skills.registry import default_skills_dir
+from aco.skills.runtime import apply_routing_skill
 
 
 POLICY_WEIGHTS = {
@@ -236,6 +238,7 @@ def route_unified_request(
     *,
     data_dir: str | Path,
     payload: dict,
+    skills_dir: str | Path | None = None,
 ) -> dict:
     data_path = Path(data_dir)
     providers = load_provider_pool(data_path / "provider_pool.json", quota_path=data_path / "quota_config.json")
@@ -254,8 +257,15 @@ def route_unified_request(
             "reason": "no provider has enough remaining capacity",
         }
 
+    skill_result = apply_routing_skill(
+        policy=policy,
+        candidates=candidates,
+        estimated_usage=usage,
+        skills_dir=skills_dir or default_skills_dir(data_path),
+    )
+    candidates = skill_result["candidates"]
     selected = candidates[0]
-    return {
+    route = {
         "request_id": f"aco-route-{uuid4().hex[:12]}",
         "policy": policy,
         "estimated_usage": usage,
@@ -264,10 +274,19 @@ def route_unified_request(
         "status": "routed",
         "reason": "highest policy score among eligible providers",
     }
+    if skill_result["skill"] is not None:
+        route["routing_skill"] = skill_result["skill"]
+        route["reason"] = "selected by routing skill"
+    return route
 
 
-def simulate_chat_completion(*, data_dir: str | Path, payload: dict) -> dict:
-    route = route_unified_request(data_dir=data_dir, payload=payload)
+def simulate_chat_completion(
+    *,
+    data_dir: str | Path,
+    payload: dict,
+    skills_dir: str | Path | None = None,
+) -> dict:
+    route = route_unified_request(data_dir=data_dir, payload=payload, skills_dir=skills_dir)
     if route["status"] != "routed":
         return {
             "error": {

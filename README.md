@@ -11,6 +11,7 @@ The first version intentionally avoids real account integration and real trading
 3. Decisioning: flag idle or over-quota risk and suggest actions.
 4. Relay hub: route idle capacity into internal task requests.
 5. Unified API: hide multiple providers behind one user-facing endpoint.
+6. Local skills: let routing policies be extended from the `skills/` directory.
 
 ## Status
 
@@ -26,6 +27,7 @@ aco init
 aco mock --days 30 --seed 7
 aco report
 aco relay-plan
+aco skills-list
 aco api-complete --prompt "Summarize my quota risk" --debug
 ```
 
@@ -58,6 +60,15 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 ```
 
 Add `"debug": true` to inspect the routing decision.
+
+## Local Skills
+
+ACO can load local skills from the `skills/` directory. The first supported skill type is `routing_policy`, which can reorder provider candidates before the unified API selects a backend.
+
+```bash
+aco skills-list
+aco api-complete --prompt "Use idle capacity" --policy fill_idle --debug
+```
 
 ## Data Files
 
@@ -115,6 +126,7 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 
 - [Architecture](docs/architecture.md)
 - [API](docs/api.md)
+- [Skills](docs/skills.md)
 - [Roadmap](ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [GitHub Actions CI](.github/workflows/ci.yml)

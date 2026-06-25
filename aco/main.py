@@ -23,11 +23,13 @@ from aco.backend.predictor import DEFAULT_DATA_DIR, generate_prediction_report
 from aco.backend.quota_model import QuotaConfig, load_quota_config, save_quota_config
 from aco.backend.relay_hub import add_relay_request, build_relay_report, seed_relay_requests
 from aco.backend.usage_tracker import append_usage, load_usage_log, total_tokens
+from aco.skills.registry import list_skill_payloads
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="AI Capacity Optimizer MVP")
     parser.add_argument("--data-dir", default=str(DEFAULT_DATA_DIR), help="Directory containing ACO data files.")
+    parser.add_argument("--skills-dir", help="Directory containing local ACO skills.")
     subparsers = parser.add_subparsers(dest="command")
 
     init_parser = subparsers.add_parser("init", help="Create default data files.")
@@ -89,6 +91,8 @@ def build_parser() -> argparse.ArgumentParser:
     serve_api_parser = subparsers.add_parser("serve-api", help="Start the local unified API server.")
     serve_api_parser.add_argument("--host", default="127.0.0.1")
     serve_api_parser.add_argument("--port", type=int, default=8787)
+
+    subparsers.add_parser("skills-list", help="List local ACO skills.")
 
     subparsers.add_parser("sync-quota", help="Sync quota current_usage from usage log.")
     return parser
@@ -179,7 +183,7 @@ def handle_api_route(args: argparse.Namespace) -> dict:
     }
     if args.estimated_tokens is not None:
         payload["estimated_tokens"] = args.estimated_tokens
-    return route_unified_request(data_dir=args.data_dir, payload=payload)
+    return route_unified_request(data_dir=args.data_dir, payload=payload, skills_dir=args.skills_dir)
 
 
 def handle_api_complete(args: argparse.Namespace) -> dict:
@@ -191,14 +195,18 @@ def handle_api_complete(args: argparse.Namespace) -> dict:
     }
     if args.estimated_tokens is not None:
         payload["estimated_tokens"] = args.estimated_tokens
-    return simulate_chat_completion(data_dir=args.data_dir, payload=payload)
+    return simulate_chat_completion(data_dir=args.data_dir, payload=payload, skills_dir=args.skills_dir)
 
 
 def handle_serve_api(args: argparse.Namespace) -> int:
     from aco.api_server import run_server
 
-    run_server(host=args.host, port=args.port, data_dir=args.data_dir)
+    run_server(host=args.host, port=args.port, data_dir=args.data_dir, skills_dir=args.skills_dir)
     return 0
+
+
+def handle_skills_list(args: argparse.Namespace) -> dict:
+    return {"skills": list_skill_payloads(args.skills_dir)}
 
 
 def handle_sync_quota(args: argparse.Namespace) -> dict:
@@ -241,6 +249,8 @@ def main(argv: list[str] | None = None) -> int:
         payload = handle_api_complete(args)
     elif command == "serve-api":
         return handle_serve_api(args)
+    elif command == "skills-list":
+        payload = handle_skills_list(args)
     elif command == "sync-quota":
         payload = handle_sync_quota(args)
     else:
