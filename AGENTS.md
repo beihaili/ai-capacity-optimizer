@@ -65,4 +65,13 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let agents loop independently. Weak criteria such as "make it work" require clarification.
 
+## 5. Research Before Building
+
+For project or product work, check for existing wheels before implementing.
+
+- Search GitHub for high-star open-source projects with the same or adjacent goal.
+- Compare whether an existing project can replace, integrate with, or narrow the proposed work.
+- State the build-vs-adopt recommendation before committing to a larger implementation.
+- Prefer extending or integrating mature projects when they already solve the core problem.
+
 These guidelines are working if there are fewer unnecessary diffs, fewer rewrites caused by overcomplication, and clarifying questions come before implementation mistakes.
