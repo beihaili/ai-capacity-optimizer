@@ -13,6 +13,8 @@ The ideal loop:
 3. Submit small PRs upstream that help all users, not just ACO.
 4. Keep ACO's forecasting engine independent so upstream projects do not need to adopt ACO wholesale.
 
+Every connector milestone should end with an upstream PR packet, even if the actual PR is deferred.
+
 ## What Belongs Upstream
 
 Good upstream PR candidates:
@@ -66,6 +68,19 @@ Before opening an upstream PR:
 - Avoid secrets, provider credentials, and private deployment assumptions.
 - Link the ACO use case as context, not as a dependency.
 - Open an issue or discussion first if the change touches runtime behavior.
+
+## Upstream PR Packet
+
+Each connector milestone should produce:
+
+- Target repository and contribution rules.
+- Proposed issue or PR title.
+- One-paragraph maintainer-facing motivation.
+- Exact files likely to change.
+- Mock export fixture or sample payload.
+- Reproducible ACO command that consumes the fixture.
+- Acceptance criteria for the target project.
+- Decision on docs/example PR versus runtime behavior PR.
 
 ## ACO-Side Requirements
 

@@ -22,13 +22,23 @@ ACO should not compete head-on with mature LLM gateways. The main product path i
 
 ## Next
 
+- Start each connector with upstream discovery: identify contribution rules, export surfaces, test fixtures, and likely maintainer-friendly PR shape.
 - LiteLLM connector first: import spend logs, budgets, keys, model usage, and daily usage history.
+- Ship a LiteLLM upstream PR packet alongside the connector: export example, docs patch, mock data, and forecast command.
 - New API and one-api connectors next: import quota, user/channel usage, and billing logs.
+- Ship New API and one-api upstream PR packets for quota or billing export docs/helpers.
 - Normalize all gateway imports into ACO usage records.
 - Generate month-end usage, idle-capacity, and overrun forecasts from imported gateway data.
 - Produce optimization recommendations for batch jobs, summaries, code reviews, and eval workloads.
 - Use connector work to identify small upstream PRs for gateway export hooks, docs, examples, and compatibility helpers.
 - Keep the local OpenAI-compatible API as a demo and fallback compatibility surface, not the primary gateway.
+
+## PR-Driven Delivery Model
+
+Every gateway integration should produce two artifacts:
+
+- ACO artifact: connector, mock fixture, normalized usage records, forecast report, and tests.
+- Upstream artifact: PR-ready docs/example/schema/helper that improves the target gateway for all users.
 
 ## Later
 

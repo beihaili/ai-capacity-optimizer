@@ -4,6 +4,11 @@ ACO should become the forecasting and optimization layer above existing LLM gate
 
 The implementation strategy is upstream-friendly: build against public data shapes first, then submit small PRs to gateway projects when better export hooks, examples, or docs would help their users.
 
+Each connector phase has two required outputs:
+
+- ACO integration output: parser, mock fixture, normalized usage records, forecast report, and tests.
+- Upstream PR output: a narrow docs/example/schema/helper proposal that benefits the target gateway without requiring ACO as a dependency.
+
 ## Layer Model
 
 Execution Layer:
@@ -22,6 +27,26 @@ Observability Layer:
 
 - [Langfuse](https://github.com/langfuse/langfuse) and [Helicone](https://github.com/Helicone/helicone) provide traces, analytics, prompt metadata, and operational context.
 
+## Phase 0: Upstream Discovery
+
+Goal: learn enough about each target project to avoid speculative or unwelcome PRs.
+
+Inputs:
+
+- Contribution guide, PR template, license, default branch, and active issue/discussion patterns.
+- Public usage, spend, quota, billing, and budget export surfaces.
+- Existing examples, docs pages, and test fixtures around usage analytics.
+
+Outputs:
+
+- Connector design note for ACO.
+- Upstream PR packet with proposed title, target files, mock data, acceptance criteria, and whether to open an issue first.
+
+Acceptance:
+
+- No connector starts until its source data and likely upstream contribution path are documented.
+- Runtime PRs require an issue or maintainer signal first; docs/example PRs can be prepared directly when small and non-invasive.
+
 ## Phase 1: LiteLLM Connector
 
 Goal: turn LiteLLM spend, budget, key, and model usage data into ACO usage history.
@@ -38,6 +63,7 @@ Outputs:
 - Normalized ACO usage records.
 - Daily usage history.
 - Month-end forecast report.
+- LiteLLM upstream PR packet for export docs or a forecast example.
 
 Acceptance:
 
@@ -60,6 +86,7 @@ Outputs:
 - Normalized ACO usage records.
 - Per-user, per-channel, and per-model summaries where source data supports them.
 - Shared forecast reports using the same engine as the LiteLLM connector.
+- New API and one-api upstream PR packets for quota or billing export docs/helpers.
 
 Acceptance:
 
