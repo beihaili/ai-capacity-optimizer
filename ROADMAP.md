@@ -22,6 +22,7 @@ ACO should not compete head-on with mature LLM gateways. The main product path i
 
 ## Next
 
+- Use the documented [LiteLLM Phase 0 Upstream Discovery](docs/upstream/litellm-phase-0-discovery.md) packet as the first connector milestone.
 - Start each connector with upstream discovery: identify contribution rules, export surfaces, test fixtures, and likely maintainer-friendly PR shape.
 - LiteLLM connector first: import spend logs, budgets, keys, model usage, and daily usage history.
 - Ship a LiteLLM upstream PR packet alongside the connector: export example, docs patch, mock data, and forecast command.

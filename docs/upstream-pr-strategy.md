@@ -15,6 +15,8 @@ The ideal loop:
 
 Every connector milestone should end with an upstream PR packet, even if the actual PR is deferred.
 
+First packet: [LiteLLM Phase 0 Upstream Discovery](upstream/litellm-phase-0-discovery.md).
+
 ## What Belongs Upstream
 
 Good upstream PR candidates:

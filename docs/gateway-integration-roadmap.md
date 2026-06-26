@@ -41,6 +41,7 @@ Outputs:
 
 - Connector design note for ACO.
 - Upstream PR packet with proposed title, target files, mock data, acceptance criteria, and whether to open an issue first.
+- First completed packet: [LiteLLM Phase 0 Upstream Discovery](upstream/litellm-phase-0-discovery.md).
 
 Acceptance:
 

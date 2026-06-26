@@ -149,6 +149,7 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 - [API](docs/api.md)
 - [Gateway Integration Roadmap](docs/gateway-integration-roadmap.md)
 - [Upstream PR Strategy](docs/upstream-pr-strategy.md)
+- [LiteLLM Phase 0 Upstream Discovery](docs/upstream/litellm-phase-0-discovery.md)
 - [Skills](docs/skills.md)
 - [Related Projects](docs/alternatives.md)
 - [Roadmap](ROADMAP.md)
