@@ -20,6 +20,7 @@ from aco.backend.predictor import DEFAULT_DATA_DIR, generate_prediction_report
 class ACORequestHandler(BaseHTTPRequestHandler):
     data_dir = DEFAULT_DATA_DIR
     skills_dir = None
+    live = False
 
     server_version = "ACOUnifiedAPI/0.1"
 
@@ -53,7 +54,12 @@ class ACORequestHandler(BaseHTTPRequestHandler):
             self.send_json(route_unified_request(data_dir=self.data_dir, payload=payload, skills_dir=self.skills_dir))
             return
         if path == "/v1/chat/completions":
-            response = simulate_chat_completion(data_dir=self.data_dir, payload=payload, skills_dir=self.skills_dir)
+            response = simulate_chat_completion(
+                data_dir=self.data_dir,
+                payload=payload,
+                skills_dir=self.skills_dir,
+                live=self.live,
+            )
             status = 400 if "error" in response else 200
             self.send_json(response, status=status)
             return
@@ -101,15 +107,25 @@ def run_server(
     port: int = 8787,
     data_dir: str | Path = DEFAULT_DATA_DIR,
     skills_dir: str | Path | None = None,
+    live: bool = False,
 ) -> None:
     handler = type(
         "ConfiguredACORequestHandler",
         (ACORequestHandler,),
-        {"data_dir": Path(data_dir), "skills_dir": Path(skills_dir) if skills_dir is not None else None},
+        {
+            "data_dir": Path(data_dir),
+            "skills_dir": Path(skills_dir) if skills_dir is not None else None,
+            "live": live,
+        },
     )
     server = ThreadingHTTPServer((host, port), handler)
     print(f"ACO unified API listening on http://{host}:{port}", flush=True)
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        return
+    finally:
+        server.server_close()
 
 
 if __name__ == "__main__":

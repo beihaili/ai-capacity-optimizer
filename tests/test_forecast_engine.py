@@ -1,8 +1,14 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
-from aco.backend.api_gateway import ProviderConfig, route_unified_request, score_candidates
+from aco.backend.api_gateway import ProviderConfig, route_unified_request, save_provider_pool, score_candidates, simulate_chat_completion
+from aco.backend.openai_compatible import ProviderCallError
+from aco.backend.quota_model import QuotaConfig, save_quota_config
 from aco.backend.scheduler import simulate_schedule
 from aco.backend.relay_hub import RelayRequest, allocate_capacity
 from aco.engine.forecast_engine import (
@@ -160,6 +166,90 @@ class ForecastEngineTests(unittest.TestCase):
         )
         self.assertEqual(route["routing_skill"]["name"], "route_fill_idle")
         self.assertEqual(route["selected"]["provider"]["provider_id"], "cheap-batch-pool")
+
+    def test_live_completion_falls_back_and_records_usage(self) -> None:
+        with TemporaryDirectory() as tmp:
+            data_dir = Path(tmp)
+            save_quota_config(
+                data_dir / "quota_config.json",
+                QuotaConfig(
+                    plan="personal",
+                    monthly_budget_tokens=100_000,
+                    reset_day=1,
+                    current_usage=0,
+                    billing_cycle_start="2026-06-01",
+                ),
+            )
+            save_provider_pool(
+                data_dir / "provider_pool.json",
+                [
+                    ProviderConfig(
+                        provider_id="primary",
+                        provider="openai_compatible",
+                        model="gpt-4o",
+                        monthly_budget_tokens=100_000,
+                        current_usage=0,
+                        quality_score=0.99,
+                        latency_ms=500,
+                        cost_per_1k_tokens=0.01,
+                        base_url="https://primary.example.com/v1",
+                        api_key_env="ACO_PRIMARY_KEY",
+                    ),
+                    ProviderConfig(
+                        provider_id="backup",
+                        provider="openai_compatible",
+                        model="gpt-4o-mini",
+                        monthly_budget_tokens=100_000,
+                        current_usage=0,
+                        quality_score=0.80,
+                        latency_ms=700,
+                        cost_per_1k_tokens=0.002,
+                        base_url="https://backup.example.com/v1",
+                        api_key_env="ACO_BACKUP_KEY",
+                    ),
+                ],
+            )
+
+            def fake_call(provider: dict, payload: dict) -> dict:
+                if provider["provider_id"] == "primary":
+                    raise ProviderCallError("temporary failure", code="provider_http_error", status=500)
+                return {
+                    "id": "chatcmpl-test",
+                    "object": "chat.completion",
+                    "created": 123,
+                    "model": provider["model"],
+                    "choices": [
+                        {
+                            "index": 0,
+                            "message": {"role": "assistant", "content": "ok"},
+                            "finish_reason": "stop",
+                        }
+                    ],
+                    "usage": {"prompt_tokens": 3, "completion_tokens": 4, "total_tokens": 7},
+                }
+
+            with patch("aco.backend.api_gateway.call_openai_compatible", side_effect=fake_call):
+                response = simulate_chat_completion(
+                    data_dir=data_dir,
+                    payload={
+                        "messages": [{"role": "user", "content": "hello"}],
+                        "policy": "quality",
+                        "live": True,
+                        "debug": True,
+                    },
+                    live=True,
+                )
+
+            self.assertEqual(response["model"], "gpt-4o-mini")
+            self.assertEqual(response["usage"]["total_tokens"], 7)
+            self.assertEqual(response["aco"]["live_attempts"][0]["status"], "failed")
+            self.assertEqual(response["aco"]["live_attempts"][1]["status"], "success")
+
+            request_log = json.loads((data_dir / "request_log.json").read_text(encoding="utf-8"))
+            self.assertEqual([item["status"] for item in request_log], ["failed", "success"])
+            usage_log = json.loads((data_dir / "usage_log.json").read_text(encoding="utf-8"))
+            self.assertEqual(usage_log[0]["tokens_in"], 3)
+            self.assertEqual(usage_log[0]["tokens_out"], 4)
 
 
 if __name__ == "__main__":

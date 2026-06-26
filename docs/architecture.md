@@ -39,6 +39,8 @@ Usage events are stored in `aco/data/usage_log.json` and loaded through `aco.bac
 
 `aco.api_server` exposes a small stdlib HTTP server with OpenAI-compatible-ish chat completion responses.
 
+Live mode uses `aco.backend.openai_compatible` to forward non-streaming chat completions to OpenAI-compatible providers. `aco.backend.accounting` records each provider attempt in `request_log.json` and successful usage in `usage_log.json`.
+
 ## 6. Skills
 
 `aco.skills` discovers local skills from the repository `skills/` directory. The initial runtime supports `routing_policy` skills that can reorder provider candidates for policies such as `cheap` and `fill_idle`.
@@ -50,6 +52,8 @@ flowchart LR
     User["User / Client"] --> API["Unified API"]
     API --> Router["Policy Router"]
     Router --> Pool["Provider Pool"]
+    Pool --> Adapter["OpenAI-Compatible Adapter"]
+    Adapter --> Response
     Pool --> Response["Chat Completion Response"]
     Usage["Usage Log"] --> Forecast["Forecast Engine"]
     Forecast --> Relay["Relay Hub"]

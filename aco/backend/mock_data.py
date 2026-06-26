@@ -6,6 +6,7 @@ from datetime import date, datetime, time, timedelta, timezone
 import random
 from pathlib import Path
 
+from aco.backend.accounting import save_request_log
 from aco.backend.api_gateway import default_provider_pool, save_provider_pool
 from aco.backend.quota_model import QuotaConfig, cycle_dates, default_quota_config, load_quota_config, save_quota_config, today_utc
 from aco.backend.relay_hub import default_relay_requests, save_relay_requests
@@ -79,6 +80,7 @@ def initialize_data_files(
     usage_path = data_path / "usage_log.json"
     relay_path = data_path / "relay_requests.json"
     provider_path = data_path / "provider_pool.json"
+    request_log_path = data_path / "request_log.json"
 
     created: list[str] = []
     config = quota_config or default_quota_config()
@@ -94,6 +96,9 @@ def initialize_data_files(
     if overwrite or not provider_path.exists():
         save_provider_pool(provider_path, default_provider_pool())
         created.append(str(provider_path))
+    if overwrite or not request_log_path.exists():
+        save_request_log(request_log_path, [])
+        created.append(str(request_log_path))
     return {"created": created, "data_dir": str(data_path)}
 
 

@@ -9,6 +9,8 @@ import time
 from pathlib import Path
 from uuid import uuid4
 
+from aco.backend.accounting import normalize_usage, record_gateway_attempt
+from aco.backend.openai_compatible import ProviderCallError, call_openai_compatible, provider_is_live_capable
 from aco.backend.quota_model import load_quota_config
 from aco.skills.registry import default_skills_dir
 from aco.skills.runtime import apply_routing_skill
@@ -35,6 +37,9 @@ class ProviderConfig:
     cost_per_1k_tokens: float
     enabled: bool = True
     capabilities: list[str] = field(default_factory=list)
+    base_url: str | None = None
+    api_key_env: str | None = None
+    timeout_seconds: float = 30.0
 
     @property
     def remaining_tokens(self) -> int:
@@ -53,6 +58,9 @@ class ProviderConfig:
             cost_per_1k_tokens=float(data.get("cost_per_1k_tokens", 0.01)),
             enabled=bool(data.get("enabled", True)),
             capabilities=[str(item) for item in data.get("capabilities", [])],
+            base_url=str(data["base_url"]).rstrip("/") if data.get("base_url") else None,
+            api_key_env=str(data["api_key_env"]) if data.get("api_key_env") else None,
+            timeout_seconds=float(data.get("timeout_seconds", 30.0)),
         )
         provider.validate()
         return provider
@@ -74,6 +82,9 @@ class ProviderConfig:
             cost_per_1k_tokens=self.cost_per_1k_tokens,
             enabled=self.enabled,
             capabilities=list(self.capabilities),
+            base_url=self.base_url,
+            api_key_env=self.api_key_env,
+            timeout_seconds=self.timeout_seconds,
         )
 
     def validate(self) -> None:
@@ -93,6 +104,8 @@ class ProviderConfig:
             raise ValueError("latency_ms must be positive")
         if self.cost_per_1k_tokens < 0:
             raise ValueError("cost_per_1k_tokens must be non-negative")
+        if self.timeout_seconds <= 0:
+            raise ValueError("timeout_seconds must be positive")
 
 
 def default_provider_pool() -> list[ProviderConfig]:
@@ -129,6 +142,20 @@ def default_provider_pool() -> list[ProviderConfig]:
             latency_ms=650,
             cost_per_1k_tokens=0.002,
             capabilities=["chat", "batch", "summary"],
+        ),
+        ProviderConfig(
+            provider_id="personal-relay",
+            provider="openai_compatible",
+            model="gpt-4o-mini",
+            monthly_budget_tokens=1_000_000,
+            current_usage=0,
+            quality_score=0.82,
+            latency_ms=800,
+            cost_per_1k_tokens=0.003,
+            enabled=False,
+            capabilities=["chat", "code", "summary"],
+            base_url="https://your-relay.example.com/v1",
+            api_key_env="ACO_RELAY_API_KEY",
         ),
     ]
 
@@ -244,6 +271,9 @@ def route_unified_request(
     providers = load_provider_pool(data_path / "provider_pool.json", quota_path=data_path / "quota_config.json")
     usage = estimate_request_tokens(payload)
     policy = normalize_policy(str(payload.get("aco_policy") or payload.get("policy") or "balanced"))
+    live_requested = bool(payload.get("live", False))
+    if live_requested:
+        providers = [provider for provider in providers if provider_is_live_capable(provider.to_dict())]
     candidates = score_candidates(providers, estimated_tokens=usage["total_tokens"], policy=policy)
 
     if not candidates:
@@ -254,7 +284,9 @@ def route_unified_request(
             "selected": None,
             "fallbacks": [],
             "status": "rejected",
-            "reason": "no provider has enough remaining capacity",
+            "reason": "no live provider is enabled with base_url and api_key_env"
+            if live_requested
+            else "no provider has enough remaining capacity",
         }
 
     skill_result = apply_routing_skill(
@@ -285,8 +317,12 @@ def simulate_chat_completion(
     data_dir: str | Path,
     payload: dict,
     skills_dir: str | Path | None = None,
+    live: bool = False,
 ) -> dict:
-    route = route_unified_request(data_dir=data_dir, payload=payload, skills_dir=skills_dir)
+    effective_payload = {**payload}
+    if live:
+        effective_payload["live"] = True
+    route = route_unified_request(data_dir=data_dir, payload=effective_payload, skills_dir=skills_dir)
     if route["status"] != "routed":
         return {
             "error": {
@@ -297,9 +333,12 @@ def simulate_chat_completion(
             "aco": route,
         }
 
+    if live or bool(effective_payload.get("live", False)):
+        return complete_live_chat_completion(data_dir=data_dir, payload=effective_payload, route=route)
+
     selected_provider = route["selected"]["provider"]
-    user_text = extract_user_text(payload)
-    content = build_simulated_answer(user_text, selected_provider, expose_route=bool(payload.get("debug", False)))
+    user_text = extract_user_text(effective_payload)
+    content = build_simulated_answer(user_text, selected_provider, expose_route=bool(effective_payload.get("debug", False)))
     response = {
         "id": f"aco-chatcmpl-{uuid4().hex[:12]}",
         "object": "chat.completion",
@@ -317,9 +356,74 @@ def simulate_chat_completion(
         ],
         "usage": route["estimated_usage"],
     }
-    if payload.get("debug", False):
+    if effective_payload.get("debug", False):
         response["aco"] = route
     return response
+
+
+def complete_live_chat_completion(*, data_dir: str | Path, payload: dict, route: dict) -> dict:
+    attempts = []
+    candidates = [route["selected"]] + route["fallbacks"]
+    for candidate in candidates:
+        provider = candidate["provider"]
+        started = time.perf_counter()
+        try:
+            response = call_openai_compatible(provider, payload)
+        except ProviderCallError as exc:
+            latency_ms = int((time.perf_counter() - started) * 1000)
+            record_gateway_attempt(
+                data_dir=data_dir,
+                route=route,
+                provider=provider,
+                usage=None,
+                status="failed",
+                live=True,
+                latency_ms=latency_ms,
+                error=exc.message,
+            )
+            attempts.append(
+                {
+                    "provider_id": provider["provider_id"],
+                    "status": "failed",
+                    "latency_ms": latency_ms,
+                    "error": exc.to_dict(),
+                }
+            )
+            continue
+
+        latency_ms = int((time.perf_counter() - started) * 1000)
+        response_usage = normalize_usage(response.get("usage"), route["estimated_usage"])
+        response["usage"] = response_usage
+        response.setdefault("model", provider["model"])
+        record = record_gateway_attempt(
+            data_dir=data_dir,
+            route=route,
+            provider=provider,
+            usage=response_usage,
+            status="success",
+            live=True,
+            latency_ms=latency_ms,
+        )
+        attempts.append(
+            {
+                "provider_id": provider["provider_id"],
+                "status": "success",
+                "latency_ms": latency_ms,
+                "request_log": record,
+            }
+        )
+        if payload.get("debug", False):
+            response["aco"] = {**route, "live_attempts": attempts}
+        return response
+
+    return {
+        "error": {
+            "message": "all live providers failed",
+            "type": "aco_provider_error",
+            "code": "all_providers_failed",
+        },
+        "aco": {**route, "live_attempts": attempts},
+    }
 
 
 def extract_user_text(payload: dict) -> str:

@@ -76,6 +76,7 @@ aco api-complete --prompt "Use idle capacity" --policy fill_idle --debug
 - `aco/data/quota_config.json`: plan and quota settings.
 - `aco/data/relay_requests.json`: internal requests that can consume idle capacity.
 - `aco/data/provider_pool.json`: provider and model pools behind the unified API.
+- `aco/data/request_log.json`: unified API attempts, fallback status, latency, and cost estimates.
 
 `usage_log.json` is stored as a list of usage records. The loader also accepts a single-object JSON file for compatibility with early examples.
 
@@ -105,6 +106,14 @@ aco provider-list
 aco api-route --prompt "Explain today's capacity state" --policy balanced
 aco api-complete --prompt "Explain today's capacity state" --debug
 aco serve-api --port 8787
+```
+
+To call a real OpenAI-compatible relay, edit `aco/data/provider_pool.json`, enable the `personal-relay` provider, set its `base_url`, then export the API key named by `api_key_env`.
+
+```bash
+export ACO_RELAY_API_KEY="..."
+aco api-complete --live --prompt "Explain today's capacity state" --debug
+aco serve-api --live --port 8787
 ```
 
 HTTP endpoints:

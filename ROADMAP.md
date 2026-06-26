@@ -8,11 +8,10 @@
 - Unified API simulation.
 - Streamlit dashboard.
 - Local routing skills.
+- OpenAI-compatible live relay with fallback accounting.
 
 ## Next
 
-- Real provider adapters for OpenAI-compatible APIs.
-- Persistent usage accounting after each routed API call.
 - API key management and per-user quotas.
 - Provider health checks and automatic failover.
 - Request class routing for chat, code, batch, and evaluation workloads.

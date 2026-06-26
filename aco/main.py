@@ -87,10 +87,12 @@ def build_parser() -> argparse.ArgumentParser:
     api_complete_parser.add_argument("--max-tokens", type=int, default=256)
     api_complete_parser.add_argument("--policy", choices=["balanced", "quality", "cheap", "fast", "fill_idle"], default="balanced")
     api_complete_parser.add_argument("--debug", action="store_true")
+    api_complete_parser.add_argument("--live", action="store_true", help="Call a real OpenAI-compatible provider.")
 
     serve_api_parser = subparsers.add_parser("serve-api", help="Start the local unified API server.")
     serve_api_parser.add_argument("--host", default="127.0.0.1")
     serve_api_parser.add_argument("--port", type=int, default=8787)
+    serve_api_parser.add_argument("--live", action="store_true", help="Forward chat completions to real providers.")
 
     subparsers.add_parser("skills-list", help="List local ACO skills.")
 
@@ -192,16 +194,17 @@ def handle_api_complete(args: argparse.Namespace) -> dict:
         "max_tokens": args.max_tokens,
         "policy": args.policy,
         "debug": args.debug,
+        "live": args.live,
     }
     if args.estimated_tokens is not None:
         payload["estimated_tokens"] = args.estimated_tokens
-    return simulate_chat_completion(data_dir=args.data_dir, payload=payload, skills_dir=args.skills_dir)
+    return simulate_chat_completion(data_dir=args.data_dir, payload=payload, skills_dir=args.skills_dir, live=args.live)
 
 
 def handle_serve_api(args: argparse.Namespace) -> int:
     from aco.api_server import run_server
 
-    run_server(host=args.host, port=args.port, data_dir=args.data_dir, skills_dir=args.skills_dir)
+    run_server(host=args.host, port=args.port, data_dir=args.data_dir, skills_dir=args.skills_dir, live=args.live)
     return 0
 
 

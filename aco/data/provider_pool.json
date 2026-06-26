@@ -47,6 +47,25 @@
         "batch",
         "summary"
       ]
+    },
+    {
+      "provider_id": "personal-relay",
+      "provider": "openai_compatible",
+      "model": "gpt-4o-mini",
+      "monthly_budget_tokens": 1000000,
+      "current_usage": 0,
+      "quality_score": 0.82,
+      "latency_ms": 800,
+      "cost_per_1k_tokens": 0.003,
+      "enabled": false,
+      "capabilities": [
+        "chat",
+        "code",
+        "summary"
+      ],
+      "base_url": "https://your-relay.example.com/v1",
+      "api_key_env": "ACO_RELAY_API_KEY",
+      "timeout_seconds": 30.0
     }
   ]
 }
