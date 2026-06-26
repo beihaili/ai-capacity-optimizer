@@ -28,16 +28,18 @@ Usage events are stored in `aco/data/usage_log.json` and loaded through `aco.bac
 
 `aco.backend.relay_hub` is the internal middle station. It receives internal requests, ranks them by priority and deadline, and allocates predicted idle tokens.
 
-## 5. Unified API
+## 5. Gateway Compatibility
 
-`aco.backend.api_gateway` hides multiple provider/model pools behind one endpoint. It scores providers by:
+`aco.backend.api_gateway` provides a local compatibility surface for demos and experiments. Production gateway execution should usually live in LiteLLM, New API, or one-api, while ACO consumes their usage, quota, budget, and spend data.
+
+The local compatibility router scores provider pools by:
 
 - quality
 - remaining capacity
 - cost
 - latency
 
-`aco.api_server` exposes a small stdlib HTTP server with OpenAI-compatible-ish chat completion responses.
+`aco.api_server` exposes a small stdlib HTTP server with OpenAI-compatible-ish chat completion responses for local testing.
 
 Live mode uses `aco.backend.openai_compatible` to forward non-streaming chat completions to OpenAI-compatible providers. `aco.backend.accounting` records each provider attempt in `request_log.json` and successful usage in `usage_log.json`.
 
@@ -55,6 +57,7 @@ flowchart LR
     Pool --> Adapter["OpenAI-Compatible Adapter"]
     Adapter --> Response
     Pool --> Response["Chat Completion Response"]
+    Gateway["LiteLLM / New API / one-api"] --> Usage
     Usage["Usage Log"] --> Forecast["Forecast Engine"]
     Forecast --> Relay["Relay Hub"]
     Relay --> Router

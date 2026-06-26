@@ -1,16 +1,16 @@
 # AI Capacity Optimizer
 
-AI Capacity Optimizer, or ACO, is a local MVP for forecasting AI quota usage, detecting idle capacity, routing internal work, and hiding multiple AI provider pools behind one unified API.
+AI Capacity Optimizer, or ACO, is a forecasting and optimization layer for existing LLM gateways. It predicts AI quota usage, detects idle capacity, and recommends work that can use otherwise wasted budget.
 
-The first version intentionally avoids real account integration and real trading. It is designed as a local, inspectable product prototype for AI usage optimization.
+ACO is not trying to replace mature gateways such as LiteLLM, New API, or one-api. It is designed to sit above them as a local, inspectable quota intelligence layer.
 
 ## What It Does
 
 1. Observation: record usage events and daily token totals.
 2. Forecasting: estimate month-end usage with EMA plus a short trend.
 3. Decisioning: flag idle or over-quota risk and suggest actions.
-4. Relay hub: route idle capacity into internal task requests.
-5. Unified API: hide multiple providers behind one user-facing endpoint.
+4. Relay hub: turn idle capacity into internal task requests.
+5. Gateway compatibility: read from and optionally proxy OpenAI-compatible gateways.
 6. Local skills: let routing policies be extended from the `skills/` directory.
 
 ## Status
@@ -43,15 +43,15 @@ Run tests:
 python -m unittest
 ```
 
-## Unified API Quick Test
+## Compatibility API Quick Test
 
-Start the local API:
+ACO includes a small local API for demos and compatibility testing. This is not intended to compete with full gateway projects.
 
 ```bash
 aco serve-api --port 8787
 ```
 
-Call the single user-facing endpoint:
+Call the local endpoint:
 
 ```bash
 curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
@@ -60,6 +60,16 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 ```
 
 Add `"debug": true` to inspect the routing decision.
+
+## Use With Existing Gateways
+
+The recommended production shape is to run ACO next to an existing gateway:
+
+- [LiteLLM](https://github.com/BerriAI/litellm) for OpenAI-compatible access, provider routing, budgets, spend logs, and load balancing.
+- [New API](https://github.com/QuantumNous/new-api) or [one-api](https://github.com/songquanpeng/one-api) for model aggregation, quota, key distribution, and Chinese relay scenarios.
+- [Langfuse](https://github.com/langfuse/langfuse) or [Helicone](https://github.com/Helicone/helicone) for tracing, observability, and analytics.
+
+ACO's job is to import usage and quota data from these systems, predict month-end waste or overrun, and produce optimization recommendations.
 
 ## Local Skills
 
@@ -99,7 +109,7 @@ python -m aco.main relay-plan
 
 ## Unified API
 
-The unified API is the user-facing layer. Clients call one endpoint while ACO chooses a provider/model pool based on policy, quality, cost, latency, and remaining capacity.
+The unified API is a compatibility layer for local demos. For production gateway behavior, prefer LiteLLM, New API, or one-api, then let ACO consume their usage, budget, and quota data.
 
 ```bash
 aco provider-list
@@ -135,7 +145,9 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 
 - [Architecture](docs/architecture.md)
 - [API](docs/api.md)
+- [Gateway Integration Roadmap](docs/gateway-integration-roadmap.md)
 - [Skills](docs/skills.md)
+- [Related Projects](docs/alternatives.md)
 - [Roadmap](ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [GitHub Actions CI](.github/workflows/ci.yml)

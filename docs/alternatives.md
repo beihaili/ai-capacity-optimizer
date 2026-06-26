@@ -17,4 +17,16 @@ ACO overlaps with several mature open-source categories:
 | [Helicone/helicone](https://github.com/Helicone/helicone) | 5k+ | LLM observability | Better to integrate than rebuild analytics. |
 | [lm-sys/RouteLLM](https://github.com/lm-sys/RouteLLM) | 5k+ | LLM routing and cost-quality tradeoff | Useful algorithmic reference for routing. |
 
-Current recommendation: do not compete head-on as another generic LLM gateway. Keep ACO focused on quota forecasting, idle-capacity prediction, personal/local usage optimization, and integration with existing gateways such as LiteLLM, New API, one-api, or Helicone.
+## Product Conclusion
+
+These projects already cover gateway execution, key distribution, quota enforcement, billing, spend tracking, load balancing, and observability. They do not appear to provide a complete layer for future quota-waste prediction, idle-capacity detection, and optimization recommendations.
+
+Current recommendation: do not compete head-on as another generic LLM gateway. Keep ACO focused on quota forecasting, idle-capacity prediction, personal/local usage optimization, and integration with existing gateways such as LiteLLM, New API, one-api, Langfuse, or Helicone.
+
+ACO's differentiated role:
+
+- Import usage, quota, budget, and spend data from mature gateways.
+- Predict month-end usage, waste, and overrun risk.
+- Identify idle capacity before it expires.
+- Recommend useful work that can consume otherwise wasted capacity.
+- Leave provider routing, key distribution, billing, and production proxying to mature gateway projects.
