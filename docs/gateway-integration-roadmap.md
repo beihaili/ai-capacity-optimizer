@@ -2,6 +2,8 @@
 
 ACO should become the forecasting and optimization layer above existing LLM gateways, not another generic gateway.
 
+The implementation strategy is upstream-friendly: build against public data shapes first, then submit small PRs to gateway projects when better export hooks, examples, or docs would help their users.
+
 ## Layer Model
 
 Execution Layer:
@@ -41,6 +43,7 @@ Acceptance:
 
 - ACO can generate a quota forecast from LiteLLM-derived data without any provider API key.
 - Connector tests can run against mock LiteLLM exports.
+- Any missing LiteLLM export or documentation need is captured as a narrow upstream PR candidate.
 
 ## Phase 2: New API and one-api Connectors
 
@@ -62,6 +65,7 @@ Acceptance:
 
 - The same forecast engine works with mock New API and one-api data.
 - Connector parsing does not require real credentials.
+- Any missing quota or billing export path becomes a narrow upstream PR candidate, not a private fork patch.
 
 ## Phase 3: Idle Capacity Forecasting
 
@@ -110,3 +114,21 @@ Acceptance:
 
 - Users can receive a daily forecast report.
 - Reports can be generated without storing provider secrets in ACO.
+
+## Upstream PR Loop
+
+Goal: make ACO useful to gateway maintainers, not just ACO users.
+
+Process:
+
+- Build each connector from exported or mock gateway data first.
+- Identify the smallest upstream improvement that would make the integration cleaner.
+- Prefer docs, examples, schemas, export helpers, or optional hooks over invasive runtime changes.
+- Keep forecasting algorithms and cross-gateway normalization in ACO unless an upstream project explicitly wants them.
+
+First PR targets:
+
+- LiteLLM: forecast/export example using spend logs, budget data, and model usage.
+- New API: quota and billing export documentation or helper endpoint if current data access is not enough.
+- one-api: log/quota export documentation and ACO companion example.
+- Langfuse or Helicone: optional documentation showing how observability data can enrich ACO forecasts.

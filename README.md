@@ -71,6 +71,8 @@ The recommended production shape is to run ACO next to an existing gateway:
 
 ACO's job is to import usage and quota data from these systems, predict month-end waste or overrun, and produce optimization recommendations.
 
+The longer-term goal is upstream-friendly integration: build connectors and reports in ACO, then contribute small PRs back to gateway projects when they need export hooks, docs, or compatibility helpers.
+
 ## Local Skills
 
 ACO can load local skills from the `skills/` directory. The first supported skill type is `routing_policy`, which can reorder provider candidates before the unified API selects a backend.
@@ -146,6 +148,7 @@ curl --noproxy '*' http://127.0.0.1:8787/v1/chat/completions \
 - [Architecture](docs/architecture.md)
 - [API](docs/api.md)
 - [Gateway Integration Roadmap](docs/gateway-integration-roadmap.md)
+- [Upstream PR Strategy](docs/upstream-pr-strategy.md)
 - [Skills](docs/skills.md)
 - [Related Projects](docs/alternatives.md)
 - [Roadmap](ROADMAP.md)
