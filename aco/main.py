@@ -23,6 +23,7 @@ from aco.backend.predictor import DEFAULT_DATA_DIR, generate_prediction_report
 from aco.backend.quota_model import QuotaConfig, load_quota_config, save_quota_config
 from aco.backend.relay_hub import add_relay_request, build_relay_report, seed_relay_requests
 from aco.backend.usage_tracker import append_usage, load_usage_log, total_tokens
+from aco.connectors.litellm import import_litellm_exports
 from aco.skills.registry import list_skill_payloads
 
 
@@ -54,6 +55,12 @@ def build_parser() -> argparse.ArgumentParser:
     report_parser = subparsers.add_parser("report", help="Print a prediction report.")
     report_parser.add_argument("--reference-date")
     report_parser.add_argument("--output", help="Optional JSON output path.")
+
+    litellm_parser = subparsers.add_parser("import-litellm", help="Import LiteLLM spend logs.")
+    litellm_parser.add_argument("--spend-log", required=True, help="LiteLLM spend log JSON export.")
+    litellm_parser.add_argument("--budget", help="Optional LiteLLM budget JSON export.")
+    litellm_parser.add_argument("--out", help="Output ACO usage log path. Defaults to data-dir usage_log.json.")
+    litellm_parser.add_argument("--append", action="store_true", help="Append to the output usage log.")
 
     relay_seed_parser = subparsers.add_parser("relay-seed", help="Create default relay hub requests.")
     relay_seed_parser.add_argument("--overwrite", action="store_true", help="Replace existing relay requests.")
@@ -137,6 +144,27 @@ def handle_report(args: argparse.Namespace) -> dict:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     return report
+
+
+def handle_import_litellm(args: argparse.Namespace) -> dict:
+    data_dir = Path(args.data_dir)
+    output_path = Path(args.out) if args.out else data_dir / "usage_log.json"
+    payload = import_litellm_exports(
+        spend_log_path=args.spend_log,
+        budget_path=args.budget,
+        output_path=output_path,
+        append=args.append,
+    )
+    quota_path = data_dir / "quota_config.json"
+    default_usage_path = data_dir / "usage_log.json"
+    if quota_path.exists() and output_path.resolve() == default_usage_path.resolve():
+        quota = load_quota_config(quota_path)
+        records = load_usage_log(output_path)
+        current_usage = total_tokens(records)
+        save_quota_config(quota_path, quota.with_current_usage(current_usage))
+        payload["current_usage"] = current_usage
+        payload["quota_config"] = str(quota_path)
+    return payload
 
 
 def handle_relay_seed(args: argparse.Namespace) -> dict:
@@ -236,6 +264,8 @@ def main(argv: list[str] | None = None) -> int:
         payload = handle_log(args)
     elif command == "report":
         payload = handle_report(args)
+    elif command == "import-litellm":
+        payload = handle_import_litellm(args)
     elif command == "relay-seed":
         payload = handle_relay_seed(args)
     elif command == "relay-add":

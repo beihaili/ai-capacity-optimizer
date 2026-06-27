@@ -150,7 +150,7 @@ aco import-litellm \
 aco report
 ```
 
-This command is a design target, not an implemented command yet.
+This command is implemented as the first file-first LiteLLM connector. The optional budget file is imported as context; ACO does not convert LiteLLM dollar budgets into token quotas without an explicit conversion policy.
 
 ## Mock Fixture
 
@@ -230,8 +230,7 @@ Issue-first decision:
 
 ## Next ACO Tasks
 
-1. Add mock LiteLLM spend and budget fixtures.
-2. Implement `aco import-litellm` as a file parser.
-3. Add unit tests that normalize spend logs into ACO usage records.
-4. Generate a forecast report from the mock fixture.
-5. Prepare the LiteLLM docs/example PR draft using the fixture and command output.
+1. Extend LiteLLM import support from raw spend logs to dashboard daily export shapes.
+2. Add optional model, key, and team summaries from imported LiteLLM fields.
+3. Generate a saved forecast report from the mock fixture.
+4. Prepare the LiteLLM docs/example PR draft using the fixture and command output.
