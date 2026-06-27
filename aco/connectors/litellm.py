@@ -42,6 +42,23 @@ def litellm_session_type(call_type: object) -> str:
     return "api"
 
 
+def parse_export_number(value: object, default: float = 0.0) -> float:
+    if value is None or value == "":
+        return default
+    if isinstance(value, int | float):
+        return float(value)
+    normalized = str(value).replace("$", "").replace(",", "").strip()
+    return float(normalized) if normalized else default
+
+
+def detect_litellm_row_shape(row: dict) -> str:
+    if row.get("startTime") is not None or row.get("endTime") is not None:
+        return "spend_log"
+    if row.get("Date") is not None or row.get("date") is not None:
+        return "dashboard_export"
+    raise ValueError("LiteLLM row must look like a spend log or dashboard export row")
+
+
 def normalize_litellm_spend_log(row: dict) -> UsageRecord:
     timestamp = row.get("startTime") or row.get("endTime")
     if timestamp is None:
@@ -64,8 +81,41 @@ def normalize_litellm_spend_log(row: dict) -> UsageRecord:
     return record
 
 
+def normalize_litellm_dashboard_export_row(row: dict) -> UsageRecord:
+    export_date = row.get("Date") or row.get("date")
+    if export_date is None:
+        raise ValueError("LiteLLM dashboard export row is missing Date")
+    timestamp = str(export_date)
+    if "T" not in timestamp:
+        timestamp = f"{timestamp}T00:00:00Z"
+
+    prompt_tokens = int(parse_export_number(row.get("Prompt Tokens") or row.get("prompt_tokens")))
+    completion_tokens = int(parse_export_number(row.get("Completion Tokens") or row.get("completion_tokens")))
+    total_tokens_value = row.get("Total Tokens") or row.get("total_tokens")
+    if prompt_tokens == 0 and completion_tokens == 0 and total_tokens_value is not None:
+        prompt_tokens = int(parse_export_number(total_tokens_value))
+
+    record = UsageRecord(
+        timestamp=timestamp,
+        model=str(row.get("Model") or row.get("model") or "litellm/dashboard-export"),
+        tokens_in=prompt_tokens,
+        tokens_out=completion_tokens,
+        cost_estimate=parse_export_number(row.get("Spend ($)") or row.get("spend")),
+        session_type="api",
+    )
+    record.validate()
+    return record
+
+
+def normalize_litellm_export_row(row: dict) -> UsageRecord:
+    shape = detect_litellm_row_shape(row)
+    if shape == "spend_log":
+        return normalize_litellm_spend_log(row)
+    return normalize_litellm_dashboard_export_row(row)
+
+
 def normalize_litellm_spend_logs(rows: Iterable[dict]) -> list[UsageRecord]:
-    return [normalize_litellm_spend_log(row) for row in rows]
+    return [normalize_litellm_export_row(row) for row in rows]
 
 
 def import_litellm_exports(
@@ -88,6 +138,7 @@ def import_litellm_exports(
         "budget": summarize_litellm_budget(budget),
         "output": str(output_path),
         "append": append,
+        "detected_shapes": sorted({detect_litellm_row_shape(row) for row in spend_rows}),
         "imported_records": len(imported_records),
         "total_records": len(records),
         "imported_tokens": total_tokens(imported_records),

@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "entity_type": "team",
+    "export_scope": "daily_with_models",
+    "exported_at": "2026-06-27T00:00:00Z",
+    "summary": {
+      "total_spend": 0.0933,
+      "total_requests": 9,
+      "successful_requests": 9,
+      "failed_requests": 0,
+      "total_tokens": 23800
+    }
+  },
+  "data": [
+    {
+      "Date": "2026-06-24",
+      "Team ID": "team_mock_001",
+      "Team Alias": "Core AI",
+      "Model": "gpt-4o-mini",
+      "Spend ($)": "0.0123",
+      "Requests": 2,
+      "Successful Requests": 2,
+      "Failed Requests": 0,
+      "Total Tokens": "2,800"
+    },
+    {
+      "Date": "2026-06-25",
+      "Team ID": "team_mock_001",
+      "Team Alias": "Core AI",
+      "Model": "gpt-4o",
+      "Spend ($)": "0.036",
+      "Requests": 3,
+      "Successful Requests": 3,
+      "Failed Requests": 0,
+      "Total Tokens": "6,000"
+    },
+    {
+      "Date": "2026-06-26",
+      "Team ID": "team_mock_002",
+      "Team Alias": "Batch AI",
+      "Model": "gpt-4o-mini",
+      "Spend ($)": "0.045",
+      "Requests": 4,
+      "Successful Requests": 4,
+      "Failed Requests": 0,
+      "Total Tokens": "15,000"
+    }
+  ]
+}

@@ -128,6 +128,7 @@ Observed export concepts:
 - Breakdown metrics: `spend`, `prompt_tokens`, `completion_tokens`, `total_tokens`, `api_requests`, `successful_requests`, `failed_requests`, `cache_read_input_tokens`, `cache_creation_input_tokens`
 
 Connector implication: ACO should support daily export files first, then add key and model breakdown support.
+Current connector support: ACO can import raw LiteLLM spend logs and LiteLLM dashboard JSON exports with `daily`, `daily_with_keys`, or `daily_with_models` rows when those rows include `Date` and token metrics. CSV export support is still a follow-up.
 
 ## ACO Connector Design Note
 
@@ -145,6 +146,10 @@ Initial command shape:
 aco import-litellm \
   --spend-log examples/litellm_spend_logs.json \
   --budget examples/litellm_budget.json \
+  --out aco/data/usage_log.json
+
+aco import-litellm \
+  --spend-log examples/litellm_dashboard_daily_with_models_export.json \
   --out aco/data/usage_log.json
 
 aco report
@@ -230,7 +235,7 @@ Issue-first decision:
 
 ## Next ACO Tasks
 
-1. Extend LiteLLM import support from raw spend logs to dashboard daily export shapes.
+1. Add CSV parsing for LiteLLM dashboard exports.
 2. Add optional model, key, and team summaries from imported LiteLLM fields.
 3. Generate a saved forecast report from the mock fixture.
 4. Prepare the LiteLLM docs/example PR draft using the fixture and command output.
