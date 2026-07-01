@@ -1,0 +1,63 @@
+name: Feedback
+description: Share feedback on ACO imports, forecasts, and optimization reports.
+title: "[Feedback]: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying ACO. Please do not include real API keys, private prompts, customer data, or raw production logs.
+  - type: dropdown
+    id: gateway
+    attributes:
+      label: Gateway or source
+      description: Which system are you using or evaluating with ACO?
+      options:
+        - LiteLLM
+        - New API
+        - one-api
+        - OpenRouter or other OpenAI-compatible relay
+        - Langfuse
+        - Helicone
+        - Local/manual usage logs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: usage_source
+    attributes:
+      label: Usage data source
+      description: What export, API, log, or dashboard data can you provide to ACO?
+      placeholder: "Example: LiteLLM dashboard JSON export with daily_with_models scope."
+    validations:
+      required: true
+  - type: dropdown
+    id: pain_level
+    attributes:
+      label: Pain level
+      description: How painful is quota or spend planning today?
+      options:
+        - Low: nice to have
+        - Medium: causes manual work
+        - High: causes budget surprises or wasted capacity
+    validations:
+      required: true
+  - type: textarea
+    id: desired_report
+    attributes:
+      label: Desired report
+      description: What would make the forecast or idle-capacity report useful?
+      placeholder: "Example: per-team forecast, per-model idle risk, overrun warning, recommended batch jobs."
+    validations:
+      required: true
+  - type: textarea
+    id: privacy_constraints
+    attributes:
+      label: Privacy constraints
+      description: What data should ACO avoid storing or displaying?
+      placeholder: "Example: no prompts, no raw response bodies, no full API keys."
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Anything else that would help us understand your workflow?

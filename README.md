@@ -17,6 +17,12 @@ ACO is not trying to replace mature gateways such as LiteLLM, New API, or one-ap
 
 ACO is alpha software. The default provider calls are simulated so the project can be tested without real API keys, private account data, or billing integration.
 
+## Request For Feedback
+
+ACO is looking for feedback from people who run LiteLLM, New API, one-api, OpenRouter relays, or shared AI API budgets. The current question is whether imported usage data plus a month-end forecast helps teams predict idle capacity, overrun risk, and useful batch work before quota resets.
+
+Start here: [Feedback](docs/feedback.md)
+
 ## Quick Start
 
 ```bash

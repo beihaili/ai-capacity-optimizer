@@ -1,0 +1,50 @@
+name: Upstream PR candidate
+description: Propose a small upstream docs, export, schema, or helper PR for a gateway project.
+title: "[Upstream PR]: "
+labels: ["upstream-pr"]
+body:
+  - type: dropdown
+    id: target_project
+    attributes:
+      label: Target project
+      options:
+        - LiteLLM
+        - New API
+        - one-api
+        - Langfuse
+        - Helicone
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: pr_type
+    attributes:
+      label: PR type
+      options:
+        - Documentation
+        - Example
+        - Export helper
+        - Schema clarification
+        - Optional hook
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: maintainer_value
+    attributes:
+      label: Maintainer-facing value
+      description: Why would this help users of the upstream project even if they never install ACO?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change and likely target docs or files.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How should we know the upstream PR is narrow, useful, and non-invasive?

@@ -1,0 +1,39 @@
+name: Connector request
+description: Request support for a gateway, observability tool, or usage export format.
+title: "[Connector]: "
+labels: ["connector"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a connector or export parser. Please share mock or redacted examples only.
+  - type: input
+    id: system
+    attributes:
+      label: System name
+      description: Which gateway, relay, observability tool, or export should ACO support?
+      placeholder: New API, one-api, Langfuse, Helicone, custom relay
+    validations:
+      required: true
+  - type: textarea
+    id: available_data
+    attributes:
+      label: Available data
+      description: What usage, quota, budget, billing, or spend data can be exported?
+      placeholder: Describe fields, endpoints, CSV columns, JSON shape, or database tables.
+    validations:
+      required: true
+  - type: textarea
+    id: forecast_goal
+    attributes:
+      label: Forecast goal
+      description: What should ACO predict from this source?
+      placeholder: "Example: month-end token usage, remaining quota, idle budget, overrun risk."
+    validations:
+      required: true
+  - type: textarea
+    id: mock_payload
+    attributes:
+      label: Mock or redacted payload
+      description: Paste a small sanitized sample if possible. Do not include secrets or customer data.
+      render: json
